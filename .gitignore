@@ -1,0 +1,39 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+
+*.log
+
+# Maven
+log/
+target/
+!components/general/target/
+
+# Node
+node/
+node_modules/
+
+# ESlint
+coverage/
+package-lock.json
+
+# vscode
+.vscode/
+
+# ES6compilation
+**/_compiled/*.js
+
+# MacOS
+# General
+.DS_Store
+**/.DS_Store
+Desktop.ini
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.fseventsd
+.Trashes
+.Spotlight-V100
