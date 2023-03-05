@@ -1,0 +1,129 @@
+version: '2.15.1'
+
+services:
+  eureka-server:
+    # Path to dockerfile.
+    # '.' represents the current directory in which
+    # docker-compose.yml is present.
+    build: ./eureka-server
+
+    # Mapping of container port to host
+    ports:
+      - "8761:8761"
+
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  config-server:
+    # Path to dockerfile.
+    # '.' represents the current directory in which
+    # docker-compose.yml is present.
+    build: ./config-server
+
+    # Mapping of container port to host
+    ports:
+      - "9000:9000"
+
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/guestservices/default" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  guest-services-alpha:
+    # Path to dockerfile.
+    # '.' represents the current directory in which
+    # docker-compose.yml is present.
+    build: ./guest-services
+
+    # Mapping of container port to host
+    ports:
+      - "8810:8810"
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  guest-services-beta:
+    # Path to dockerfile.
+    # '.' represents the current directory in which
+    # docker-compose.yml is present.
+    build: ./guest-services
+
+    # Mapping of container port to host
+    ports:
+      - "8811:8810"
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  guest-services-gamma:
+    # Path to dockerfile.
+    # '.' represents the current directory in which
+    # docker-compose.yml is present.
+    build: ./guest-services
+
+    # Mapping of container port to host
+    ports:
+      - "8812:8810"
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  room-services:
+    # Path to dockerfile.
+    # '.' represents the current directory in which
+    # docker-compose.yml is present.
+    build: ./room-services
+
+    # Mapping of container port to host
+    ports:
+      - "8820:8820"
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  reservation-services:
+    # Path to dockerfile.
+    # '.' represents the current directory in which
+    # docker-compose.yml is present.
+    build: ./reservation-services
+
+    # Mapping of container port to host
+    ports:
+      - "8830:8830"
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+
+  zuul-balance-server:
+    # Path to dockerfile.
+    # '.' represents the current directory in which
+    # docker-compose.yml is present.
+    build: ./zuul-balance-server
+
+    # Mapping of container port to host
+    ports:
+      - "8762:8762"
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy
