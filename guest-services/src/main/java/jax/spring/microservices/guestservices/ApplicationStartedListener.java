@@ -15,7 +15,7 @@ public class ApplicationStartedListener implements ApplicationListener<ContextRe
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         logger.info("Got event {}", contextRefreshedEvent.getSource());
-        //initMetricsPublishing();
+        initMetricsPublishing();
     }
 
     private void initMetricsPublishing() {
