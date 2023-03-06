@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/room-reservations")
@@ -35,7 +36,7 @@ public class RoomReservationWebService {
         rooms.forEach(room->{
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomId(room.getId());
-            roomReservation.setRoomName(room.getName());
+            roomReservation.setRoomName(room.getRoomName());
             roomReservation.setRoomNumber(room.getRoomNumber());
             roomReservations.put(room.getId(), roomReservation);
         });
@@ -49,7 +50,10 @@ public class RoomReservationWebService {
             roomReservation.setLastName(guest.getLastName());
         });
 
-        return new ArrayList<>(roomReservations.values());
+        return roomReservations.values()
+                .stream()
+                .filter(r -> null != r.getDate())
+                .collect(Collectors.toList());
     }
 
 

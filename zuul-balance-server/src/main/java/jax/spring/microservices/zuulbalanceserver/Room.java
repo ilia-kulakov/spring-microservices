@@ -2,7 +2,7 @@ package jax.spring.microservices.zuulbalanceserver;
 
 public class Room {
     private long id;
-    private String name;
+    private String roomName;
     private String roomNumber;
     private String bedInfo;
 
@@ -14,12 +14,12 @@ public class Room {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public String getRoomNumber() {
