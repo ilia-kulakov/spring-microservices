@@ -1,6 +1,11 @@
 version: '2.15.1'
 
 services:
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+
   eureka-server:
     # Path to dockerfile.
     # '.' represents the current directory in which
