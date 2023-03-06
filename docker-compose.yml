@@ -126,3 +126,17 @@ services:
     depends_on:
       eureka-server:
         condition: service_healthy
+
+  feign-client:
+    # Path to dockerfile.
+    # '.' represents the current directory in which
+    # docker-compose.yml is present.
+    build: ./feign-client
+
+    # Mapping of container port to host
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      zuul-balance-server:
+        condition: service_started
